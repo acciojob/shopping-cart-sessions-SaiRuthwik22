@@ -8,7 +8,7 @@ const products = [
   { id: 4, name: "Product 4", price: 40 },
   { id: 5, name: "Product 5", price: 50 },
 ];
-let cartItems = sessionStorage.getItem("cartItems")?JSON.parse(sessionStorage.getItem("cartItems")):[]
+let cart = sessionStorage.getItem("cart")?JSON.parse(sessionStorage.getItem("cart")):[]
 
 
 // DOM elements
@@ -27,19 +27,19 @@ function renderProducts() {
 // Render cart list
 function renderCart() {
 	cartList.innerHTML = ""
-	cartItems.forEach((product) => {
+	cart.forEach((product) => {
     const li = document.createElement("li");
     li.innerHTML = `${product.name} - $${product.price} <button class="add-to-cart-btn" data-id="${product.id}" onclick="removeFromCart(${product.id})">Remove from Cart</button>`;
     cartList.appendChild(li);
   });
-	sessionStorage.setItem("cartItems",JSON.stringify(cartItems))
+	sessionStorage.setItem("cart",JSON.stringify(cart))
 }
 
 // Add item to cart
 function addToCart(productId) {
   let product = products.find(product => product.id === productId);
   if (product) {
-    cartItems.push(product);
+    cart.push(product);
     renderCart();
   }
 
@@ -47,13 +47,13 @@ function addToCart(productId) {
 
 // Remove item from cart
 function removeFromCart(productId) {
-	cartItems = cartItems.filter((ele)=>ele.id !== productId)
+	cart = cart.filter((ele)=>ele.id !== productId)
 	renderCart()
 }
 
 // Clear cart
 function clearCart() {
-	cartItems = []
+	cart = []
 	renderCart()
 }
 
