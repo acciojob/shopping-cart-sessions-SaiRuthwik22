@@ -37,12 +37,12 @@ function renderCart() {
 
 // Add item to cart
 function addToCart(productId) {
-	for (let i = 0; i < products.length; i++) {
-		if(productId == products[i].id){
-			cartItems.push(products[i])
-		}
-	}
-	renderCart()
+  let product = products.find(product => product.id === productId);
+  if (product) {
+    cartItems.push(product);
+    renderCart();
+  }
+
 }
 
 // Remove item from cart
